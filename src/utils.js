@@ -27,6 +27,23 @@ export function displayDialogue(text, onDisplayEnd){
         dialogue.innerHTML="";
         clearInterval(intervalRef);
         closeButton.removeEventListener("click", onCloseButtonClick);//recursive. remove function wihin itself
+        
+        // Restore focus to the game canvas so keyboard controls work again
+        const canvas = document.getElementById("game");
+        if (canvas) {
+            canvas.focus();
+        }
     }
     closeButton.addEventListener("click", onCloseButtonClick);
+}
+
+//cam dimension logic for multi screen size
+export function setCamScale(k){
+    const resizeFactor=k.width()/k.height();
+    if (resizeFactor<1){
+        k.camScale(k.vec2(1));
+        return;
+    }
+
+    k.camScale(k.vec2(1.5));
 }
